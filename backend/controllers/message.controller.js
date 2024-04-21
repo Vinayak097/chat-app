@@ -38,13 +38,13 @@ export const sendMessage=async(req,res)=>{
 			conversation.message.push(newMessage._id);
 		}
         await Promise.all([conversation.save(), newMessage.save()]);
-    res.status(201).json(newMessage)
-    console.log("message sent ")
-}catch(e){
-    console.log("error in message.controller send:id " ,e.message )
-    res.status(500).json({error:"Internal server error "})
+        res.status(201).json(newMessage)
+        console.log("message sent ")
+    }catch(e){
+        console.log("error in message.controller send:id " ,e.message )
+        res.status(500).json({error:"Internal server error "})
 
-}
+    }
 }
 
 export const getMesssage=async(req,res)=>{
