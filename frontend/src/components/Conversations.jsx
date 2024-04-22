@@ -9,7 +9,7 @@ function Conversations() {
         <Conversation/>
        
         <Conversation/>
-        </div>
+    </div>
   ) 
 }
 
