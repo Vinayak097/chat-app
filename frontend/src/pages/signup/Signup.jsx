@@ -84,7 +84,7 @@ const SignUp = () => {
 						/>
 					</div>
 
-					<Gendercheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
+					<Gendercheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} /> 
 
 					<Link
 						to={"/login"}

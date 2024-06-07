@@ -48,22 +48,21 @@ export const sendMessage=async(req,res)=>{
 }
 
 export const getMesssage=async(req,res)=>{
-    try{
-    const receiverId=req.param.id;
-    const senderId=(req.user._id).toString()
-    const conversation=new Conversation({
-        participants:[senderId,receiverId]
+    try {
+		const { id: userToChatId } = req.params;
+		const senderId = req.user._id;
 
-    }).populate("message");//Not reference but actual messages
-    if(!conversation){
-        res.status(200).json([])
-    }
-    const messages=conversation.message;
-    console.log( conversation, messages)
-    res.status(200).json(messages);
-    }   
-    catch(e){
-        console.log("error in message.controller send:id " ,e.message )
-        res.status(500).json({error:"Internal server error "})
-    }
+		const conversation = await Conversation.findOne({
+			participants: { $all: [senderId, userToChatId] },
+		}).populate("message"); // NOT REFERENCE BUT ACTUAL MESSAGES
+
+		if (!conversation) return res.status(200).json([]);
+
+		const messages = conversation.message;
+
+		res.status(200).json(messages);
+	} catch (error) {
+		console.log("Error in getMessages controller: ", error.message);
+		res.status(500).json({ error: "Internal server error" });
+	}
 }

@@ -1,11 +1,13 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcrypt';
 import generateTokenSetToken from "../utils/generateTokens.js";
-import { set } from "mongoose";
+
 
 const boyprofiele= "https://avatar.iran.liara.run/public/41"
 const girlprofile="https://avatar.iran.liara.run/public/73"
 export const signup=async(req,res)=>{
+    console.log("entered i nsignup ")
+
     try{
     const {fullName,username,password,gender,confirmPassword}=await req.body;
     if(!password==confirmPassword){
