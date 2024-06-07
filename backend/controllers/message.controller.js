@@ -4,9 +4,12 @@ export const sendMessage=async(req,res)=>{
     try{
         
         const { message } = req.body;
-		const { id: receiverId } = req.params;
+		const receiverId = req.params.id;
         const user=req.user;
-        console.log(user)
+		
+        if(!user){
+			return res.status(400).json("user not found ")
+		}
 		const senderId = (req.user._id).toString();
         console.log(message," id ",receiverId," senderId ",senderId)
         
@@ -41,7 +44,7 @@ export const sendMessage=async(req,res)=>{
         res.status(201).json(newMessage)
         console.log("message sent ")
     }catch(e){
-        console.log("error in message.controller send:id " ,e.message )
+        console.log("error in message.controller send:id " ,e )
         res.status(500).json({error:"Internal server error "})
 
     }

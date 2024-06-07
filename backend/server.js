@@ -1,36 +1,36 @@
-
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import authRoutes from "./routes/auth.js";
 import messageRoutes from "./routes/message.js";
 import userRoutes from "./routes/user.js";
-import cors from 'cors'
 import connectToMongoDB from "./db/connect.Mongodb.js";
-import { app, server } from "./socket/socket.js";
 
-const PORT =  5000;
-
-
+const app = express();
+const PORT = 5000;
+const allowedOrigins = ['http://localhost:3000']; // Your frontend URL
 
 dotenv.config();
 
-app.use(express.json()); // to parse the incoming requests with JSON payloads (from req.body)
+app.use(express.json());
 app.use(cookieParser());
-app.use(cors())
+
+// CORS configuration
+app.use(cors({
+    origin: true,       // Allow any origin
+    credentials: true   // Allow credentials (cookies, etc.)
+}));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
-app.get('/',(req,res)=>{
-	res.send("hello")
-})
+app.get('/', (req, res) => {
+    res.send("hello");
+});
 
-
-
-
-server.listen(PORT, () => {
-	connectToMongoDB();
-	console.log(`Server Running on port ${PORT}`);
+app.listen(PORT, () => {
+    connectToMongoDB();
+    console.log(`Server Running on port ${PORT}`);
 });

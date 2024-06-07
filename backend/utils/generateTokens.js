@@ -1,17 +1,21 @@
-import jwt from "jsonwebtoken"
-const generateTokenSetToken=(userId,res)=>{
-    const token=jwt.sign({userId},process.env.JWT_SECRET,{expiresIn:"15d"});
-    try{
-    res.cookie("jwt",token,{
-        maxAge:15*24*60*60*10000,
-        httpOnly:true,//prevent XSS attacks cross-site scripting attacks
-        sameSite:"strict", //CSRF attacks cross-site request forgery  attacks
-        secure:process.env.NODE_ENV !== "development"
-    })
-}catch(e){
-    res.status(400).json({error:"error in set cokkie ",})
-    console.log(e)
-}
-    console.log("cookie setled")
-}
-export default generateTokenSetToken
+import jwt from "jsonwebtoken";
+
+const generateTokenSetToken = (userId, res) => {
+    try {
+        const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "15d" });
+        
+        res.cookie("jwt", token, {
+            maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
+            httpOnly: true,                     // Prevent XSS attacks
+            sameSite: "strict",                 // Prevent CSRF attacks
+            secure: process.env.NODE_ENV !== "development" // Secure flag for non-development environments
+        });
+
+        console.log("Cookie set successfully");
+    } catch (e) {
+        console.error("Error in setting cookie:", e);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+export default generateTokenSetToken;
