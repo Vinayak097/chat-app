@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 
 
-import connectToMongoDB from "../db/connect.Mongodb.js";
 
 const userSchema=new mongoose.Schema({
     fullName:{

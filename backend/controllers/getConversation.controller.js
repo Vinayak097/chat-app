@@ -1,4 +1,3 @@
 const getConversations=(req,res)=>{
-    return {}
-    
+    return {}  
 }
