@@ -10,7 +10,7 @@ import connectToMongoDB from "./db/connect.Mongodb.js";
 
 const app = express();
 const PORT = 5000;
-const allowedOrigins = ['http://localhost:3000']; // Your frontend URL
+
 
 dotenv.config();
 
@@ -19,8 +19,8 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: true,       // Allow any origin
-    credentials: true   // Allow credentials (cookies, etc.)
+    origin: 'http://localhost:3000', // Update with your frontend domain
+    credentials: true
 }));
 
 app.use("/api/auth", authRoutes);

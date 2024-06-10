@@ -5,6 +5,7 @@ export const protectRouter = async (req, res, next) => {
     console.log('Enter protectRouter');
     try {
         const token = req.cookies.jwt;
+        console.log(req.cookies)
         console.log('Token:', token);
 
         if (!token) {
