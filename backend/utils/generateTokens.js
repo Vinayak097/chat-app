@@ -11,6 +11,7 @@ const generateTokenSetToken = (userId, res) => {
             secure: process.env.NODE_ENV !== "development" // Secure flag for non-development environments
         });
 
+        res.status(200).json({ message: "Token set successfully" });
         console.log("Cookie set successfully");
     } catch (e) {
         console.error("Error in setting cookie:", e);

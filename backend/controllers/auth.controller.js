@@ -64,8 +64,8 @@ export const login=async(req,res)=>{
         res.status(411).json({error : "invalid username/password"})
     }
  
-        generateTokenSetToken(user._id,res);
-        res.status(200).json({
+       await generateTokenSetToken(user._id,res);
+    return   res.status(200).json({
             _id:user._id,
             fullName:user.fullName,
             username:user.username,
